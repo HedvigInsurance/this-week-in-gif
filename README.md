@@ -1,4 +1,4 @@
-# gif-of-the-week
+# this-week-in-gif
 
 This repo contains a script that will:
 
