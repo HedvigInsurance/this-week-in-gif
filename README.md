@@ -31,7 +31,7 @@ To configure you need to set the following environment variables:
 To run:
 
 ```bash
-bun run scripts/update-slack.ts owner/repo
+bun run src/cli.ts
 ```
 
 ## Contributing

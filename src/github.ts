@@ -22,6 +22,19 @@ interface RepoParams {
 	repo: string;
 }
 
+function getMostRecentMonday(): Date {
+	const today = new Date();
+	const dayOfWeek = today.getDay();
+	const daysSinceMonday = (dayOfWeek === 0 ? 7 : dayOfWeek) - 1;
+	const monday = new Date(
+		today.getFullYear(),
+		today.getMonth(),
+		today.getDate() - daysSinceMonday,
+	);
+	monday.setHours(0, 0, 0, 0);
+	return monday;
+}
+
 async function getPullRequestsSinceLastMonday(
 	params: RepoParams,
 ): Promise<PullRequest[]> {
@@ -34,9 +47,7 @@ async function getPullRequestsSinceLastMonday(
 		per_page: 100,
 	});
 
-	const lastMonday = new Date();
-	lastMonday.setDate(lastMonday.getDate() - lastMonday.getDay() + 1);
-	lastMonday.setHours(0, 0, 0, 0);
+	const lastMonday = getMostRecentMonday();
 
 	return response.data
 		.filter((pull) => new Date(pull.created_at) > lastMonday)
